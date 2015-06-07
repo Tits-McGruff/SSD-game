@@ -1,10 +1,13 @@
 import pygame
 from pygame.locals import *
 import Menu_Object
-from SP_menu import sp_menu
+from image_loader import get_image
+
 
 class menu(object):
     def __init__(self, screen): #surface, color, x, y, length, height, width, text, text_color, font size
+        self.screen = screen    
+    
         self.SP_button = Menu_Object.Button(screen, (135, 12, 12), 1000, 160, 200, 100, 0, "Single Player", (0, 0, 0), 35) #creates the buttons
 
         self.TP_button = Menu_Object.Button(screen, (135, 12, 12), 1000, 270, 200, 100, 0, "Two Player", (0, 0, 0), 35)
@@ -15,9 +18,9 @@ class menu(object):
 
         self.exit_button = Menu_Object.Button(screen, (135, 12, 12), 1000, 600, 200, 100, 0, "Quit", (0, 0, 0), 35)
         
-        self.sp_menu = sp_menu(screen)
     #draws them
     def draw(self):
+        self.screen.blit(get_image('assets\images\\backgrounds\Main_Menu.png').convert(), (0, 0, 1280, 720))
         self.SP_button.draw()
         self.TP_button.draw()
         self.settings_button.draw()
@@ -27,40 +30,17 @@ class menu(object):
         
     def handle_event(self, event):    
         if event.type == MOUSEBUTTONDOWN and self.SP_button.pressed() == True:
-            return self.sp_menu
+            return "SP_menu"
             
+        if event.type == MOUSEBUTTONDOWN and self.TP_button.pressed() == True:
+            return "TP_menu"
+
+        if event.type == MOUSEBUTTONDOWN and self.settings_button.pressed() == True:
+            return "settings"
+            
+        if event.type == MOUSEBUTTONDOWN and self.highscores_button.pressed() == True:
+            return "highscores"
+          
         if event.type == MOUSEBUTTONDOWN and self.exit_button.pressed() == True:
             quit()
         return None 
-
-        if event.type == MOUSEBUTTONDOWN and self.TP_button.pressed() == True:
-            #return self.load_TP_menu()  
-            print ("TP")
-
-        if event.type == MOUSEBUTTONDOWN and self.settings_button.pressed() == True:
-            #return self.load_setting_menu()            
-
-            print ("settings")
-            
-        if event.type == MOUSEBUTTONDOWN and self.highscores_button.pressed() == True:
-           #return self.load_highscores_menu()
-           print ("highscores")
-   
-    
-        
-    
-    
-    #def load_TP_menu(self):
-       # return 
-        
-        
-
-    #def load_setting_menu(self):
-      #  return 
-        
-        
-    
-    #def load_highscores_menu(self):
-      #  return
-        
-        
